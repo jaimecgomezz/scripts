@@ -12,10 +12,13 @@ EXPOSED_PATH="$( realpath "$0" | sed "s|$FILE_NAME||g" )"
 
 cd "$EXPOSED_PATH"
 
+cat /dev/null > .gitignore
 find . -maxdepth 1 -type l -delete
 
 for f in */*.sh ; do
   name="$( basename "$f" | sed 's/\.sh//' )"
 
   ln -s "${EXPOSED_PATH}${f}" "${EXPOSED_PATH}${name}"
+
+  echo "$name" >> .gitignore
 done
