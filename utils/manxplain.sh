@@ -15,8 +15,20 @@ LINES=10
 MSG="man"
 ##############################
 
-selection="$( man -k . | awk '{print $1" "$2}' | ${DMENU} -p $MSG -l $LINES )"
+function get_selection() {
+  msg="$1"; shift
+  options=("$@")
 
-[ ! -z "$selection" ] || exit 1
+  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" )"
 
-echo "$selection" | awk '{print $1}' | xargs man -Tpdf | zathura -
+  echo "$selection"
+
+  [ -z "$selection" ] && return 1 || return 0
+}
+
+pages="$( man -k . | awk '{print $1" "$2}' )"
+page="$( get_selection 'man' "$pages[@]" )"
+
+[ "$?" = 0 ] || exit 1
+
+echo "$page" | awk '{print $1}' | xargs man -Tpdf | zathura -

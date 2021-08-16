@@ -24,7 +24,7 @@ function get_selection() {
 actions=('[l]ock' '[s]uspend' '[h]ibernate' '[r]eboot' '[S]hutdown')
 action="$( get_selection 'actions' "${actions[@]}" )"
 
-[ ! -z "$action" ] || exit 1
+[ "$?" = 0 ] || exit 1
 
 case "$action" in
   '[l]ock'      ) ${EXIT_MANAGER} 'lock'       ;;
