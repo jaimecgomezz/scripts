@@ -8,12 +8,14 @@
 # dependencies:
 #   - rofi
 #   - zathura
-######################### vars
+####################### global
+DMENU="${DMENU:-dmenu}"
+####################### script
 LINES=10
 MSG="man"
 ##############################
 
-selection="$( man -k . | sort | awk '{print $1" "$2}' | rofi -dmenu -p $MSG -l $LINES )"
+selection="$( man -k . | awk '{print $1" "$2}' | ${DMENU} -p $MSG -l $LINES )"
 
 [ ! -z "$selection" ] || exit 1
 
