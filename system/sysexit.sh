@@ -14,22 +14,30 @@ function get_selection() {
   msg="$1"; shift
   options=("$@")
 
-  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" -auto-select -filter '[' -matching normal )"
+  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" -auto-select -matching normal )"
 
   echo "$selection"
 
   [ -z "$selection" ] && return 1 || return 0
 }
 
-actions=('[l]ock' '[s]uspend' '[h]ibernate' '[r]eboot' '[S]hutdown')
+actions=(
+  lock
+  suspend
+  hibernate
+  reboot
+  Shutdown
+  exit
+)
 action="$( get_selection 'actions' "${actions[@]}" )"
 
 [ "$?" = 0 ] || exit 1
 
 case "$action" in
-  '[l]ock'      ) ${EXIT_MANAGER} 'lock'       ;;
-  '[s]uspend'   ) ${EXIT_MANAGER} 'suspend'    ;;
-  '[h]ibernate' ) ${EXIT_MANAGER} 'hibernate'  ;;
-  '[r]eboot'    ) ${EXIT_MANAGER} 'reboot'     ;;
-  '[S]hutdown'  ) ${EXIT_MANAGER} 'shutdown'   ;;
+  'lock'      ) ${EXIT_MANAGER} 'lock'       ;;
+  'suspend'   ) ${EXIT_MANAGER} 'suspend'    ;;
+  'hibernate' ) ${EXIT_MANAGER} 'hibernate'  ;;
+  'reboot'    ) ${EXIT_MANAGER} 'reboot'     ;;
+  'Shutdown'  ) ${EXIT_MANAGER} 'shutdown'   ;;
+  'exit'      ) ${EXIT_MANAGER} 'logout'   ;;
 esac
