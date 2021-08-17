@@ -9,7 +9,6 @@ SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmenu}"
 CONSOLE="${CONSOLE:-kitty}"
 ####################### script
-FOLLOW=0
 APPLICATION="$1"
 ##############################
 
@@ -27,8 +26,8 @@ function get_selection() {
 function logs() {
   rest="$@"
 
-  ((FOLLOW)) && follow='-t' || follow=''
-  ((!FOLLOW)) && holder='sh' || holder=''
+  ((FOLLOW)) && follow='-t'
+  ((!FOLLOW)) && holder='sh'
 
   ${CONSOLE} -e ${SHELL} -c "heroku logs $follow --app=$APPLICATION $rest ; $holder"
 }
@@ -40,15 +39,22 @@ function dynologs() {
   logs "--dyno=$dyno"
 }
 
-options=('follow' 'print')
+options=(
+  follow
+  print
+)
 option="$( get_selection 'options' "${options[@]}" )"
 
 case "$option" in
   'follow') FOLLOW=1;;
+  'print' ) FOLLOW=0;;
 esac
 
-options=('all' 'specific')
-option="$( get_selection 'options' "${options[@]}" )"
+options=(
+  all
+  specific
+)
+option="$( get_selection 'dynos' "${options[@]}" )"
 
 [ "$?" = 0 ] || exit 1
 

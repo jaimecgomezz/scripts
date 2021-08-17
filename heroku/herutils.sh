@@ -29,7 +29,10 @@ function exec_action() {
   eval "${BASEDIR}/actions/${action}.sh $application"
 }
 
-actions=('logs' 'console')
+actions=(
+  logs
+  console
+)
 action="$( get_selection 'actions' "${actions[@]}" )"
 
 [ "$?" = 0 ] || exit 1
