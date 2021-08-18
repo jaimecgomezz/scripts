@@ -4,6 +4,9 @@
 # @jaimecgomezz
 #
 # handles docker-compose logs
+#
+# dependencies:
+#   - docker-compose
 ####################### global
 SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmenu}"
@@ -36,7 +39,7 @@ logs() {
   ((FOLLOW)) && follow='-f'
   ((!FOLLOW)) && holder="sh"
 
-  "${CONSOLE}" -e "${SHELL}" -c "docker-compose --file $DCFILE logs $follow ${options[*]} ${SERVICES[*]} ; $holder"
+  "$CONSOLE" -e "$SHELL" -c "docker-compose --file $DCFILE logs $follow ${options[*]} ${SERVICES[*]} ; $holder"
 }
 
 options_opts=(

@@ -4,6 +4,10 @@
 # @jaimecgomezz
 #
 # handles docker-compose stop
+#
+# dependencies:
+#   - docker-compose
+#   - dunst
 ####################### global
 SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmenu}"
@@ -42,7 +46,7 @@ get_selection() {
 stop_loudly() {
   options=("$@")
 
-  "${CONSOLE}" -e "${SHELL}" -c "docker-compose --file $DCFILE stop ${options[*]} ${SERVICES[*]} || $SHELL"
+  "$CONSOLE" -e "$SHELL" -c "docker-compose --file $DCFILE stop ${options[*]} ${SERVICES[*]}"
 }
 
 stop_quietly() {

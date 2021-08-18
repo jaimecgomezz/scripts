@@ -5,6 +5,10 @@
 #
 # handles docker-compose
 # restart
+#
+# dependencies:
+#   - docker-compose
+#   - dunst
 ####################### global
 SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmenu}"
@@ -12,7 +16,7 @@ CONSOLE="${CONSOLE:-kitty}"
 ####################### script
 DCFILE="$1"
 shift
-SERVICES="$@"
+SERVICES=("$@")
 ##############################
 
 notify_services() {
@@ -43,7 +47,7 @@ get_selection() {
 restart_loudly() {
   options=("$@")
 
-  "${CONSOLE}" -e "${SHELL}" -c "docker-compose --file $DCFILE restart ${options[*]} ${SERVICES[*]}"
+  "$CONSOLE" -e "$SHELL" -c "docker-compose --file $DCFILE restart ${options[*]} ${SERVICES[*]}"
 }
 
 restart_quietly() {

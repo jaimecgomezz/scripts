@@ -4,6 +4,9 @@
 # @jaimecgomezz
 #
 # handles heroku logs
+#
+# dependencies:
+#   - heroku
 ####################### global
 SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmenu}"
@@ -30,7 +33,7 @@ logs() {
   ((FOLLOW)) && follow='-t'
   ((!FOLLOW)) && holder='sh'
 
-  "${CONSOLE}" -e "${SHELL}" -c "heroku logs $follow --app=$APPLICATION ${rest_args[*]} ; $holder"
+  "$CONSOLE" -e "$SHELL" -c "heroku logs $follow --app=$APPLICATION ${rest_args[*]} ; $holder"
 }
 
 dynologs() {

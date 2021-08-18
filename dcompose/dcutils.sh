@@ -4,15 +4,16 @@
 # @jaimecgomezz
 #
 # docker-compose utils entry
+#
+# dependencies:
+#   - docker-compose
 ####################### global
 DMENU=${DMENU:-dmenu}
 ####################### script
 FILE_NAME="$( basename "$0")"
 BASEDIR="$( readlink -f "$0" | sed "s|\/$FILE_NAME.*||g")"
 DCFILE=docker-compose.yml
-WORKSPACES=(
-  "parvada@${HOME}/repos/aleph/parvada-web-api"
-)
+WORKSPACES="$DCOMPOSE_WORKSPACES"
 ##############################
 
 get_selection() {

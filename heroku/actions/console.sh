@@ -4,6 +4,9 @@
 # @jaimecgomezz
 #
 # handles heroku console
+#
+# dependencies:
+#   - heroku
 ####################### global
 SHELL="${SHELL:-bash}"
 CONSOLE="${CONSOLE:-kitty}"
@@ -11,4 +14,4 @@ CONSOLE="${CONSOLE:-kitty}"
 APPLICATION="$1"
 ##############################
 
-"${CONSOLE}" -e "${SHELL}" -c "heroku run console --app=$APPLICATION"
+"$CONSOLE" -e "$SHELL" -c "heroku run console --app=$APPLICATION"

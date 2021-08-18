@@ -4,11 +4,10 @@
 # @jaimecgomezz
 #
 # handles docker-compose ps
-####################### global
-SHELL="${SHELL:-bash}"
-DMENU="${DMENU:-dmenu}"
-CONSOLE="${CONSOLE:-kitty}"
-####################### script
+#
+# dependencies:
+#   - docker-compose
+##############################
 
 get_selection() {
   msg="$1"

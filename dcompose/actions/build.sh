@@ -4,6 +4,10 @@
 # @jaimecgomezz
 #
 # handles docker-compose build
+#
+# dependencies:
+#   - docker-compose
+#   - dunst
 ####################### global
 SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmenu}"
@@ -42,7 +46,7 @@ function get_selection() {
 function build_loudly() {
   options=("$@")
 
-  "${CONSOLE}" -e "${SHELL}" -c "docker-compose --file $DCFILE build ${options[*]} ${SERVICES[*]}"
+  "$CONSOLE" -e "$SHELL" -c "docker-compose --file $DCFILE build ${options[*]} ${SERVICES[*]}"
 }
 
 function build_quietly() {

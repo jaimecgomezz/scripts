@@ -4,6 +4,9 @@
 # @jaimecgomezz
 #
 # heroky utils entry
+#
+# dependencies:
+#   - heroku
 ####################### global
 DMENU=${DMENU:-dmenu}
 ####################### script

@@ -4,6 +4,10 @@
 # @jaimecgomezz
 #
 # handles docker-compose up
+#
+# dependencies:
+#   - docker-compose
+#   - dunst
 ####################### global
 SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmenu}"
@@ -42,7 +46,7 @@ get_selection() {
 up_loudly() {
   options=("$@")
 
-  "${CONSOLE}" -e "${SHELL}" -c "docker-compose --file $DCFILE up ${options[*]} ${SERVICES[*]}"
+  "$CONSOLE" -e "$SHELL" -c "docker-compose --file $DCFILE up ${options[*]} ${SERVICES[*]}"
 }
 
 up_quietly() {

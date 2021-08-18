@@ -10,8 +10,6 @@
 #   - zathura
 ####################### global
 DMENU="${DMENU:-dmenu}"
-####################### script
-LINES=10
 ##############################
 
 function get_selection() {
