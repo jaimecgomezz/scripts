@@ -50,7 +50,9 @@ exec_action_on_services() {
   dcfile="$workspace/$DCFILE"
 
   services_opts="$(docker-compose --file "$dcfile" ps --services)"
-  services="$(get_selection 'services' 1 "${services_opts[@]}")"
+  services="$( get_selection 'services' 1 "${services_opts[@]}")"
+
+  [ "$?" = 0 ] || exit 1
 
   exec_action "$workspace" "$action" "${services[@]}"
 }
