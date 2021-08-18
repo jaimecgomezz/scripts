@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ##############################
 # @jaimecgomezz
@@ -10,11 +10,12 @@ DMENU="${DMENU:-dmenu}"
 EXIT_MANAGER=i3exit
 ##############################
 
-function get_selection() {
-  msg="$1"; shift
+get_selection() {
+  msg="$1"
+  shift
   options=("$@")
 
-  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" -auto-select -matching normal )"
+  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" -auto-select -matching normal)"
 
   echo "$selection"
 
@@ -29,15 +30,15 @@ actions=(
   Shutdown
   exit
 )
-action="$( get_selection 'actions' "${actions[@]}" )"
+action="$( get_selection 'actions' "${actions[@]}")"
 
 [ "$?" = 0 ] || exit 1
 
 case "$action" in
-  'lock'      ) ${EXIT_MANAGER} 'lock'       ;;
-  'suspend'   ) ${EXIT_MANAGER} 'suspend'    ;;
-  'hibernate' ) ${EXIT_MANAGER} 'hibernate'  ;;
-  'reboot'    ) ${EXIT_MANAGER} 'reboot'     ;;
-  'Shutdown'  ) ${EXIT_MANAGER} 'shutdown'   ;;
-  'exit'      ) ${EXIT_MANAGER} 'logout'   ;;
+  'lock')       ${EXIT_MANAGER} 'lock'       ;;
+  'suspend')    ${EXIT_MANAGER} 'suspend'    ;;
+  'hibernate')  ${EXIT_MANAGER} 'hibernate'  ;;
+  'reboot')     ${EXIT_MANAGER} 'reboot'     ;;
+  'Shutdown')   ${EXIT_MANAGER} 'shutdown'   ;;
+  'exit')       ${EXIT_MANAGER} 'logout'   ;;
 esac

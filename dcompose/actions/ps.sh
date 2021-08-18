@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ##############################
 # @jaimecgomezz
@@ -10,28 +10,30 @@ DMENU="${DMENU:-dmenu}"
 CONSOLE="${CONSOLE:-kitty}"
 ####################### script
 
-function get_selection() {
-  msg="$1"; shift
-  multi="$1"; shift
+get_selection() {
+  msg="$1"
+  shift
+  multi="$1"
+  shift
   options=("$@")
 
-	((multi)) && multioptions="-multi-select"
+  ((multi)) && multioptions="-multi-select"
 
-  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" "$multioptions" )"
+  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" "$multioptions")"
 
-	echo "$( echo "$selection" | paste -sd ' ' )"
+  echo "$selection" | paste -sd ' '
 
   [ -z "$selection" ] && return 1 || return 0
 }
 
-function show() {
+show() {
   statuz="$1"
 
-  elements="$( docker ps --all --filter "status=$statuz" --format 'table{{.Image}}\t{{.Status}}' | tail +2 )"
+  elements="$( docker ps --all --filter "status=$statuz" --format 'table{{.Image}}\t{{.Status}}' | tail +2)"
 
   elements="${elements:-None}"
 
-  ( echo "${elements[@]}" | ${DMENU} -p 'ps' ) > /dev/null
+  ( echo "${elements[@]}" | ${DMENU} -p 'ps' ) >/dev/null
 
   return "$?"
 }
@@ -45,7 +47,7 @@ status_opts=(
   paused
   dead
 )
-statuz="$( get_selection 'status' 0 "${status_opts[@]}" )"
+statuz="$( get_selection 'status' 0 "${status_opts[@]}")"
 
 [ "$?" = 0 ] || exit 1
 

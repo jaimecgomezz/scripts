@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ##############################
 # @jaimecgomezz
@@ -11,4 +11,4 @@ CONSOLE="${CONSOLE:-kitty}"
 APPLICATION="$1"
 ##############################
 
-${CONSOLE} -e ${SHELL} -c "heroku run console --app=$APPLICATION"
+"${CONSOLE}" -e "${SHELL}" -c "heroku run console --app=$APPLICATION"

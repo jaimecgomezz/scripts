@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ##############################
 # @jaimecgomezz
@@ -9,48 +9,55 @@ SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmenu}"
 CONSOLE="${CONSOLE:-kitty}"
 ####################### script
-DCFILE="$1"; shift
-SERVICES="$@"
+DCFILE="$1"
+shift
+SERVICES=("$@")
 ##############################
 
-function notify_services() {
+notify_services() {
   success="$1"
 
   ((success)) && urgency="NORMAL" || urgency="CRITICAL"
-  ((success)) && msg="up: ${SERVICES[@]}" || msg="failed: ${SERVICES[@]}"
+  ((success)) && msg="up: ${SERVICES[*]}" || msg="failed: ${SERVICES[*]}"
 
   dunstify -a 'dcutils' -u "$urgency" "$msg"
 }
 
-function get_selection() {
-  msg="$1"; shift
-  multi="$1"; shift
+get_selection() {
+  msg="$1"
+  shift
+  multi="$1"
+  shift
   options=("$@")
 
-	((multi)) && multioptions="-multi-select"
+  ((multi)) && multioptions="-multi-select"
 
-  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" "$multioptions" )"
+  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" "$multioptions")"
 
-	echo "$( echo "$selection" | paste -sd ' ' )"
+  echo "$selection" | paste -sd ' '
 
   [ -z "$selection" ] && return 1 || return 0
 }
 
-function up_loudly() {
-  options="$@"
+up_loudly() {
+  options=("$@")
 
-  ${CONSOLE} -e ${SHELL} -c "docker-compose --file $DCFILE up $options ${SERVICES[@]}"
+  "${CONSOLE}" -e "${SHELL}" -c "docker-compose --file $DCFILE up ${options[*]} ${SERVICES[*]}"
 }
 
-function up_quietly() {
-  options="$@"
+up_quietly() {
+  options=("$@")
 
-  eval "docker-compose --file $DCFILE up -d $options ${SERVICES[@]}"
+  eval "docker-compose --file $DCFILE up -d ${options[*]} ${SERVICES[*]}"
 
-  [ "$?" = 0 ] && notify_services 1 || notify_services 0
+  if [ "$?" = 0 ]; then
+    notify_services 1
+  else
+    notify_services 0
+  fi
 }
 
-options=(
+options_opts=(
   --no-color
   --quiet-pull
   --no-deps
@@ -64,17 +71,17 @@ options=(
   --remove-orphans
   --no-log-prefix
 )
-options="$( get_selection 'options' 1 "${options[@]}" )"
+options=("$( get_selection 'options' 1 "${options_opts[@]}")")
 
 quietly_opts=(
   yes
   no
 )
-quietly="$( get_selection 'quiet?' 0 "${quietly_opts[@]}" )"
+quietly="$( get_selection 'quiet?' 0 "${quietly_opts[@]}")"
 
 [ "$?" = 0 ] || exit 1
 
 case "$quietly" in
-  'no'  )  up_loudly "$options"  ;;
-  'yes' )  up_quietly "$options" ;;
+  'no')    up_loudly "${options[@]}"  ;;
+  'yes')   up_quietly "${options[@]}" ;;
 esac
