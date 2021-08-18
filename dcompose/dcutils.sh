@@ -13,7 +13,7 @@ DMENU=${DMENU:-dmenu}
 FILE_NAME="$( basename "$0")"
 BASEDIR="$( readlink -f "$0" | sed "s|\/$FILE_NAME.*||g")"
 DCFILE=docker-compose.yml
-WORKSPACES="$DCOMPOSE_WORKSPACES"
+WORKSPACES=()
 ##############################
 
 get_selection() {
