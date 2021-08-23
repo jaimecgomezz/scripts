@@ -1,5 +1,4 @@
 utils/hosts/*
-!utils/hosts/base
 dcutils
 herutils
 runner

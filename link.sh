@@ -8,7 +8,6 @@
 ####################### script
 IGNORED=(
   "utils/hosts/*"
-  !utils/hosts/base
 )
 FILE_NAME="$( basename "$0" )"
 EXPOSED_PATH="$( realpath "$0" | sed "s|$FILE_NAME||g" )"
