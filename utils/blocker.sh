@@ -8,7 +8,7 @@
 # folder
 ####################### global
 DMENU=${DMENU:-dmenu}
-GUI_SUDO="${GUI_SUDO:-gksu}"
+NOTIFIER="${NOTIFIER:-dunstify}"
 ####################### script
 FILE_NAME="$( basename "$0")"
 BASEDIR="$( readlink "$0" | sed "s|\/$FILE_NAME.*||g")"
@@ -22,7 +22,7 @@ notify_result() {
 
   ((success)) && urgency="NORMAL" || urgency="CRITICAL"
 
-  dunstify -a 'blocker' -u "$urgency" "$msg"
+  "$NOTIFIER" -a 'blocker' -u "$urgency" "$msg"
 }
 
 get_selection() {

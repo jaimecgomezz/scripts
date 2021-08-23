@@ -13,6 +13,7 @@
 SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmenu}"
 CONSOLE="${CONSOLE:-kitty}"
+NOTIFIER="${NOTIFIER:-dunstify}"
 ####################### script
 DCFILE="$1"
 shift
@@ -25,7 +26,7 @@ notify_services() {
   ((success)) && urgency="NORMAL" || urgency="CRITICAL"
   ((success)) && msg="restarted: ${SERVICES[*]}" || msg="failed: ${SERVICES[*]}"
 
-  dunstify -a 'dcutils' -u "$urgency" "$msg"
+  "$NOTIFIER" -a 'dcutils' -u "$urgency" "$msg"
 }
 
 get_selection() {
