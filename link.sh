@@ -1,18 +1,23 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 ##############################
 # @jaimecgomezz
 #
 # exposes scripts contained
 # in folder's subfolders
-##############################
-
+####################### script
+IGNORED=()
 FILE_NAME="$( basename "$0" )"
 EXPOSED_PATH="$( realpath "$0" | sed "s|$FILE_NAME||g" )"
-
-cd "$EXPOSED_PATH"
+##############################
 
 cat /dev/null > .gitignore
+for i in "${IGNORED[@]}"; do
+  echo "$i" >> .gitignore
+done
+
+cd "$EXPOSED_PATH" || exit 1
+
 find . -maxdepth 1 -type l -delete
 
 for f in */*.sh ; do
