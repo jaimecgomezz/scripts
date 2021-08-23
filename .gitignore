@@ -1,7 +1,10 @@
+utils/hosts/*
+!utils/hosts/base
 dcutils
 herutils
 runner
 suexec
 sysexit
+blocker
 manxplain
 systop
