@@ -36,6 +36,7 @@ exec_action() {
 actions=(
   logs
   console
+  psql
 )
 action="$( get_selection 'actions' "${actions[@]}")"
 
@@ -47,6 +48,7 @@ application="$( get_selection 'application' "${applications[@]}")"
 [ "$?" = 0 ] || exit 1
 
 case "$action" in
-  'logs')     exec_action 'logs' "$application"    ;;
-  'console')  exec_action 'console' "$application" ;;
+  'logs')     exec_action 'logs' "$application"     ;;
+  'console')  exec_action 'console' "$application"  ;;
+  'psql')     exec_action 'psql' "$application"     ;;
 esac
