@@ -1,15 +1,2 @@
-# copy or symlink your /etc/hosts content here
-#
-# to create custom blocker just add new files
-# under this folder, for example:
-#
-# ---------------------------
-# hosts/work
-# ---------------------------
-# 127.0.0.1 www.some.com
-# 127.0.0.1 www.other.com
-# 127.0.0.1 www.domain.com
-# ---------------------------
-#
-# this will block all three domains contained in
-# the hosts/work file
+::1       localhost
+127.0.0.1 localhost loopback
