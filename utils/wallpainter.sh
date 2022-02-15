@@ -9,6 +9,7 @@
 ####################### global
 DMENU=${DMENU:-dmenu}
 ####################### script
+SELF="$( basename "$0" | sed 's/\.sh//g')"
 WALLPAPERS=~/pictures/wallpapers
 ##############################
 
@@ -26,7 +27,8 @@ get_selection() {
 
 set_wallpaper() {
   ln -sf "$WALLPAPERS/$1" "$WALLPAPERS/wallpaper"
-  hsetroot -cover "$WALLPAPERS/wallpaper" wallpainter
+  hsetroot -cover "$WALLPAPERS/wallpaper"
+  "$SELF"
 }
 
 found="$(  ls -l "$WALLPAPERS/" | grep -e jpg -e png | awk '{print $9}')"
