@@ -24,6 +24,11 @@ get_selection() {
   [ -z "$selection" ] && return 1 || return 0
 }
 
+set_wallpaper() {
+  ln -sf "$WALLPAPERS/$1" "$WALLPAPERS/wallpaper"
+  hsetroot -cover "$WALLPAPERS/wallpaper" wallpainter
+}
+
 found="$(  ls -l "$WALLPAPERS/" | grep -e jpg -e png | awk '{print $9}')"
 wallpapers=(done "${found[@]}")
 wallpaper="$( get_selection 'wallpaper' "${wallpapers[@]}")"
@@ -31,6 +36,6 @@ wallpaper="$( get_selection 'wallpaper' "${wallpapers[@]}")"
 [ "$?" = 0 ] || exit 1
 
 case "$wallpaper" in
-  "done") exit 0                                                ;;
-  *)    hsetroot -cover "$WALLPAPERS/$wallpaper" && wallpainter ;;
+  "done") exit 0                ;;
+  *) set_wallpaper "$wallpaper" ;;
 esac
