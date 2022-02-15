@@ -3,7 +3,11 @@
 ##############################
 # @jaimecgomezz
 #
-# simple todo manager
+# simple todo list to quickly
+# add/remove tasks that can
+# be later migrated to an
+# specialized task manager
+#
 ####################### global
 SHELL="${SHELL:-bash}"
 DMENU="${DMENU:-dmemu}"
