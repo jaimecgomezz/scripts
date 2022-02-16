@@ -6,9 +6,22 @@
 # sets wallpaper and re-runs
 # itself until done
 #
+# it assumes that the user has
+# a folder with wallpapers
+# grouped by themes and looks
+# into the one defined by
+# $THEME
+#
+# once a theme is selected, it
+# creates a symlink in the
+# $WALLPAPERS folder named
+# wallpaper, so it can be
+# referenced by config files
+#
 ####################### global
 DMENU=${DMENU:-dmenu}
 ####################### script
+THEME=nord
 SELF="$( basename "$0" | sed 's/\.sh//g')"
 WALLPAPERS=~/pictures/wallpapers
 ##############################
@@ -26,12 +39,13 @@ get_selection() {
 }
 
 set_wallpaper() {
-  ln -sf "$WALLPAPERS/$1" "$WALLPAPERS/wallpaper"
+  ln -sf "$WALLPAPERS/$THEME/$1" "$WALLPAPERS/wallpaper"
   hsetroot -cover "$WALLPAPERS/wallpaper"
+  notify-send "$SELF" "$1"
   "$SELF"
 }
 
-found="$(  ls -l "$WALLPAPERS/" | grep -e jpg -e png | awk '{print $9}')"
+found="$(  ls -l "$WALLPAPERS/$THEME" | grep -e jpg -e png | awk '{print $9}')"
 wallpapers=(done "${found[@]}")
 wallpaper="$( get_selection 'wallpaper' "${wallpapers[@]}")"
 
