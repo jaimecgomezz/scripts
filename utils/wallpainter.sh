@@ -22,16 +22,18 @@
 DMENU=${DMENU:-dmenu}
 ####################### script
 THEME=nord
+WALLPAPERS=~/pictures/walls
 SELF="$( basename "$0" | sed 's/\.sh//g')"
-WALLPAPERS=~/pictures/wallpapers
 ##############################
+
+PREVIOUS="$1"
 
 get_selection() {
   msg="$1"
   shift
   options=("$@")
 
-  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg")"
+  selection="$( printf '%s\n' "${options[@]}" | ${DMENU} -p "$msg" -select "$PREVIOUS")"
 
   echo "$selection"
 
@@ -42,7 +44,6 @@ set_wallpaper() {
   ln -sf "$WALLPAPERS/$THEME/$1" "$WALLPAPERS/wallpaper"
   hsetroot -cover "$WALLPAPERS/wallpaper"
   notify-send "$SELF" "$1"
-  "$SELF"
 }
 
 found="$(  ls -l "$WALLPAPERS/$THEME" | grep -e jpg -e png | awk '{print $9}')"
@@ -55,3 +56,5 @@ case "$wallpaper" in
   "done") exit 0                ;;
   *) set_wallpaper "$wallpaper" ;;
 esac
+
+"$SELF" "$wallpaper"
