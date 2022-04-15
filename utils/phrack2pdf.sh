@@ -27,7 +27,7 @@ download_and_print() {
 
 	wget --quiet -c "http://phrack.org/archives/tgz/$article.tar.gz"
 	tar zxf "$article.tar.gz"
-	find ./*.txt -print0 | xargs -0 enscript -p "$article.ps"
+	find *.txt -print0 | sort -zn | xargs -0 enscript -p "$article.ps"
 	ps2pdf "$article.ps" "../$article.pdf"
 
 	cd ..
