@@ -3,13 +3,16 @@ utils/hosts/*
 dcompose/workspaces
 dcutils
 herutils
+remark
 runner
 suexec
 sysexit
 tasker
 blocker
 datetify
+fetch
 manxplain
+phrack2pdf
 setkb
 todoer
 wallpainter
